@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DevOps mit Rovo — Seibert Group</title>
+<title>From Jira Tickets to Autonomous Agents — Seibert Group</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6.0.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6.0.0/plugin/highlight/monokai.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -491,12 +491,98 @@
     margin-top: 0.4em;
   }
 
-  /* Lifecycle bar */
-  .lifecycle-bar {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 8px;
-    margin-top: 1.5em;
+  /* DevOps infinity loop diagram */
+  .devops-loop {
+    position: relative;
+    width: 1320px;
+    height: 440px;
+    margin: 0.4em auto 0;
+  }
+  .devops-loop svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .devops-loop .pill {
+    position: absolute;
+    padding: 0.4em 0.85em 0.4em 0.45em;
+    border-radius: 999px;
+    font-size: 0.72em;
+    font-weight: 600;
+    white-space: nowrap;
+    background: #fff;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    line-height: 1;
+  }
+  .devops-loop .pill .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: var(--bg-light);
+    color: var(--text-subtle);
+    font-size: 0.78em;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .devops-loop .pill.mature {
+    background: #DFFCF0;
+    color: #164B35;
+    border-color: var(--lake-teal-400);
+  }
+  .devops-loop .pill.mature .num { background: var(--lake-teal-500); color: #fff; }
+  .devops-loop .pill.emerging {
+    background: #FFF7D6;
+    color: #7A4F00;
+    border-color: #FDB733;
+  }
+  .devops-loop .pill.emerging .num { background: #FDB733; color: #fff; }
+  .devops-loop .pill.missing {
+    background: var(--bg-light);
+    color: var(--text-subtle);
+    border-style: dashed;
+  }
+  .devops-loop .pill.missing .num { background: var(--border); color: var(--text-subtle); }
+
+  .devops-loop .half-label {
+    position: absolute;
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+  }
+  .devops-loop .half-label.dev { color: var(--accent-light); }
+  .devops-loop .half-label.ops { color: var(--lilac); }
+
+  .devops-loop .center-badge {
+    position: absolute;
+    left: 550px;
+    top: 190px;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--rich-black);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6em;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.1;
+    z-index: 3;
   }
   .lc-stage {
     padding: 14px 10px;
@@ -555,6 +641,48 @@
   .lc-dot.lc-mature { background: var(--lake-teal-400); }
   .lc-dot.lc-emerging { background: #FDB733; }
   .lc-dot.lc-missing { background: var(--border); }
+
+  /* Linear 9-step lifecycle bar */
+  .lifecycle-bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    margin: 1.5em 0 0;
+  }
+  .lifecycle-bar .lc-stage { position: relative; z-index: 1; }
+  .lc-focus-frame {
+    position: absolute;
+    top: -22px;
+    bottom: -12px;
+    border: 2.5px dashed var(--lilac);
+    border-radius: 14px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .lc-focus-frame[data-label]::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-white);
+    padding: 0 10px;
+    font-size: 0.6em;
+    font-weight: 700;
+    color: var(--lilac);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .lc-focus-frame.block1 {
+    left: calc((2/9) * 100% - 5px);
+    width: calc((3/9) * 100% + 8px);
+  }
+  .lc-focus-frame.block2 {
+    left: calc((6/9) * 100% - 5px);
+    width: calc((1/9) * 100% + 8px);
+  }
 
   /* Closing thoughts cards */
   .close-card {
@@ -686,13 +814,201 @@
     color: #fff;
     letter-spacing: 0.02em;
   }
+
+  /* ===== Agentic IT Support architecture diagram ===== */
+  .agentic-arch {
+    position: relative;
+    width: 1360px;
+    height: 580px;
+    margin: 0.4em auto 0;
+    align-self: center;
+  }
+  .agentic-arch > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .arch-frame {
+    position: absolute;
+    border-radius: 14px;
+    border: 2px solid;
+    z-index: 0;
+  }
+  .arch-frame-section1 {
+    left: 20px; top: 10px;
+    width: 540px; height: 190px;
+    background: var(--bg-light);
+    border-color: var(--border);
+  }
+  .arch-frame-claude {
+    left: 920px; top: 220px;
+    width: 420px; height: 330px;
+    background: #EAF7FA;
+    border-color: var(--lake-teal-400);
+  }
+  .arch-frame-label {
+    position: absolute;
+    top: -12px; left: 18px;
+    background: var(--bg-white);
+    padding: 0 10px;
+    font-size: 0.65em;
+    font-weight: 700;
+    color: var(--text-subtle);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .arch-frame-claude .arch-frame-label { color: var(--teal-green); }
+
+  .arch-node {
+    position: absolute;
+    background: var(--rich-black);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.65em 0.85em;
+    font-size: 0.65em;
+    line-height: 1.3;
+    box-sizing: border-box;
+    z-index: 2;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .arch-node strong {
+    display: block;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: var(--apple-green);
+    margin-bottom: 0.2em;
+  }
+  .arch-node .arch-detail {
+    font-weight: 400;
+    font-size: 0.85em;
+    color: rgba(255,255,255,0.85);
+  }
+  .arch-node-triage { background: var(--pine-green-600); }
+  .arch-node-spec   { background: var(--pine-green-1); display: flex; align-items: center; }
+  .arch-node-spec strong { color: var(--lake-teal-400); margin-bottom: 0; }
+
+  .arch-annotation {
+    position: absolute;
+    font-size: 0.6em;
+    line-height: 1.5;
+    color: var(--text-subtle);
+    z-index: 2;
+  }
+  .arch-annotation strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* Specialists Agents sub-container */
+  .specs-frame {
+    position: absolute;
+    border: 1.5px dashed var(--lake-teal-400);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.55);
+    box-sizing: border-box;
+    padding: 24px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    z-index: 2;
+  }
+  .specs-frame-label {
+    position: absolute;
+    top: -11px;
+    left: 18px;
+    background: #EAF7FA;
+    padding: 0 10px;
+    font-size: 0.6em;
+    font-weight: 700;
+    color: var(--teal-green);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .specs-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .spec-pill {
+    font-size: 0.55em;
+    font-weight: 700;
+    padding: 0.55em 1.1em;
+    border-radius: 999px;
+    background: var(--lavender-300);
+    color: var(--rich-black);
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .spec-pill.spec-pill-coding {
+    background: var(--error);
+    color: #fff;
+  }
+  .spec-pill.spec-pill-fallback {
+    background: var(--rich-black);
+    color: #fff;
+  }
+  .specs-caption {
+    position: absolute;
+    font-size: 0.58em;
+    color: var(--text);
+    z-index: 2;
+  }
+
+  /* Chat-mock for the Part 2 scenario slide */
+  .chat-mock {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1em 1em;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    font-size: 0.78em;
+  }
+  .chat-mock .chat-row {
+    display: flex;
+    gap: 0.7em;
+    align-items: flex-start;
+    margin-bottom: 0.9em;
+  }
+  .chat-mock .chat-row:last-child { margin-bottom: 0; }
+  .chat-mock .chat-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    font-weight: 700;
+    color: #fff;
+  }
+  .chat-mock .av-user { background: var(--lavender-300); color: var(--rich-black); }
+  .chat-mock .av-bot  { background: var(--lake-teal-500); }
+  .chat-mock .chat-meta {
+    font-size: 0.78em;
+    font-weight: 600;
+    color: var(--text-subtle);
+    margin-bottom: 0.2em;
+  }
+  .chat-mock .chat-msg {
+    font-size: 0.95em;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .chat-mock .chat-msg .mention { color: var(--lake-teal-500); font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="reveal">
   <div class="slide-footer">
     <img src="img/seibert-logo.svg" alt="Seibert Group">
-    <span class="footer-text">Seibert Solution Day · 16. April 2026</span>
+    <span class="footer-text">Atlassian Community Event New York · May 20, 2026</span>
   </div>
   <div class="slides">
 
@@ -703,83 +1019,77 @@
     <!-- Title -->
     <section class="title-slide">
       <div class="title-left">
-        <div class="title-brand"><img src="img/seibert-logo.svg" alt="Seibert Group" style="height:36px; display:block; margin-bottom:10px;"><span style="font-size:0.85em;">Seibert Solution Day</span></div>
+        <div class="title-brand"><img src="img/seibert-logo.svg" alt="Seibert Group" style="height:36px; display:block; margin-bottom:10px;"><span style="font-size:0.85em;">Atlassian Community Event New York</span></div>
         <div>
-          <div class="speaker-name">Jonathan Pusinelli</div>
-          <div class="speaker-role">Solution Area AI</div>
+          <div class="speaker-name">Clara Berenberg</div>
+          <div class="speaker-role">Business Owner Products, Seibert Group</div>
         </div>
-        <div class="title-event">16. April 2026</div>
+        <div class="title-event">May 20, 2026</div>
       </div>
       <div class="title-right">
-        <h1>DevOps mit Rovo.<br>Vom Ticket zum<br>Merge Request.</h1>
+        <h1 style="font-size:2.1em; line-height:1.1;">From Jira Tickets<br>to Autonomous Agents:<br><span style="color:var(--apple-green); font-size:0.85em;">Practical AI for DevOps<br>and IT Teams</span></h1>
       </div>
-      <aside class="notes">Willkommen. Ich mache keinen Rovo-Intro-Recap. Drei Use Cases. Alle mit Live-Demos.</aside>
+      <aside class="notes">Welcome. I'm not doing a Rovo intro recap. Three use cases. All with live demos.</aside>
     </section>
 
-    <!-- Was ihr mitnehmt -->
+    <!-- What you'll take away -->
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Was ihr mitnehmt</div>
-        <h2>Drei Wege.<br>Drei Demos.</h2>
-        <p class="subtle" style="margin-top:0.6em;">Nach 35 Minuten wisst ihr, wo Rovo in eurem DevOps-Alltag Sinn ergibt — und wo nicht.</p>
+        <div class="sign-label">What you'll take away</div>
+        <h2>Two parts.<br>Live demos.</h2>
+        <p class="subtle" style="margin-top:0.6em;">By the end you'll know where agents already deliver — in DevOps and in IT support — and where they don't yet.</p>
       </div>
       <div class="sign-image">
-        <div style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
-          <div class="tk-card"><h3>01 · Vom Ticket zum Code</h3><p>Jira UI, Automation, Terminal — gleiche Engine</p></div>
-          <div class="tk-card"><h3>02 · CI/CD Triage</h3><p>Pipeline rot → Rovo fixt sie</p></div>
-          <div class="tk-card"><h3>03 · Custom DevOps Agents</h3><p>Rovo Studio — Release Notes auf Knopfdruck</p></div>
+        <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+          <div class="tk-card" style="border-left-color: var(--lake-teal-500);"><h3 style="color:var(--lake-teal-500);">Part 1 · DevOps with Rovo</h3><p>Four ways from ticket to code · custom DevOps agents</p></div>
+          <div class="tk-card" style="border-left-color: var(--lilac);"><h3 style="color:var(--lilac);">Part 2 · IT Management with Autonomous Agents</h3><p>From a Google Chat message to autonomous license, board, and calendar admin</p></div>
         </div>
       </div>
-      <aside class="notes">Drei Blöcke. Alle mit Live-Demo. Am Ende: Einordnung, wo das heute auf dem Agentic-SDLC-Spektrum steht.</aside>
+      <aside class="notes">Two parts, demos throughout. Part 1 is what's available off the shelf with Rovo. Part 2 is what we're building on top with our own agents — and where Atlassian is heading too.</aside>
     </section>
 
-    <!-- SDLC Lifecycle Orientation (neutral, no colors yet) -->
+    <!-- DevOps Lifecycle Orientation (neutral, no colors yet) -->
     <section>
-      <div class="eyebrow">Orientierung</div>
-      <h2>Der Software-Lifecycle<br>hat mehrere Stationen.</h2>
+      <div class="eyebrow">Orientation</div>
+      <h2>The software lifecycle<br>has nine stations.</h2>
 
-      <div class="lifecycle-bar" style="margin-top:1.5em;">
-        <div class="lc-stage lc-stage-neutral"><span class="lc-num">1</span><span class="lc-name">Planung</span></div>
+      <div class="lifecycle-bar">
+        <div class="lc-focus-frame block1" data-label="Block 1"></div>
+        <div class="lc-focus-frame block2" data-label="Block 2"></div>
+        <div class="lc-stage lc-stage-neutral"><span class="lc-num">1</span><span class="lc-name">Plan</span></div>
         <div class="lc-stage lc-stage-neutral"><span class="lc-num">2</span><span class="lc-name">Design</span></div>
-        <div class="lc-stage lc-stage-neutral"><span class="lc-num">3</span><span class="lc-name">Coding</span></div>
+        <div class="lc-stage lc-stage-neutral"><span class="lc-num">3</span><span class="lc-name">Code</span></div>
         <div class="lc-stage lc-stage-neutral"><span class="lc-num">4</span><span class="lc-name">Review</span></div>
-        <div class="lc-stage lc-stage-neutral"><span class="lc-num">5</span><span class="lc-name">Testing</span></div>
+        <div class="lc-stage lc-stage-neutral"><span class="lc-num">5</span><span class="lc-name">Test</span></div>
         <div class="lc-stage lc-stage-neutral"><span class="lc-num">6</span><span class="lc-name">CI/CD</span></div>
         <div class="lc-stage lc-stage-neutral"><span class="lc-num">7</span><span class="lc-name">Release</span></div>
-        <div class="lc-stage lc-stage-neutral"><span class="lc-num">8</span><span class="lc-name">Monitoring</span></div>
+        <div class="lc-stage lc-stage-neutral"><span class="lc-num">8</span><span class="lc-name">Monitor</span></div>
         <div class="lc-stage lc-stage-neutral"><span class="lc-num">9</span><span class="lc-name">Docs</span></div>
       </div>
 
-      <p style="margin-top:1.4em; font-size:1.05em;">In den nächsten 35 Minuten schauen wir, <strong>welche Stationen</strong> Rovo heute abdeckt — und wie gut.</p>
-      <p class="subtle small" style="margin-top:0.4em;">Am Ende kommen wir zu dieser Grafik zurück und füllen sie aus.</p>
+      <p style="margin-top:1.6em; font-size:1.05em;">Part 1 zooms in on four stations: <strong>Code, Review, Test</strong> for Block 1, and <strong>Release</strong> for Block 2 — the spots where Rovo most clearly delivers today.</p>
 
-      <aside class="notes">Das ist die Orientierung. 9 typische Stationen im Software-Lifecycle. Wir haben heute 3 Demos, und während die laufen, merkt euch: welche Station adressiert das gerade? Am Ende sehen wir, wo Rovo steht. Wichtig zum Framing: Rovo ist ein Implementation-Tool, kein Paradigm Shift. Einzelne Schritte werden besser, aber das ist nicht End-to-End-Autonomie.</aside>
+      <aside class="notes">Nine common stations in any software lifecycle. We're spending Part 1 on the framed three — Code, Review, Test — because that's where Rovo's value is clearest today. As the demos run, ask yourself: which station does this hit? At the end we color the whole bar in. Important framing: Rovo is an implementation tool, not a paradigm shift. Individual steps get better, not end-to-end autonomy.</aside>
     </section>
 
     <!-- ============================ -->
-    <!-- ACT 2: THREE WAYS -->
+    <!-- BLOCK 01: FOUR WAYS FROM TICKET TO CODE -->
     <!-- ============================ -->
 
     <section data-background-color="#02464B">
-      <div class="live-eyebrow">Teil 01 · 15 Minuten</div>
-      <h1 style="color:#fff;">Vom Ticket<br>zum Code.</h1>
-      <p style="font-size:1.2em; opacity:0.9;">Drei Wege. Gleiche Engine.</p>
-      <aside class="notes">Jira UI. Automation. Terminal.</aside>
+      <div class="live-eyebrow">Block 01 · ~10 minutes</div>
+      <h1 style="color:#fff;">From ticket<br>to code.</h1>
+      <p style="font-size:1.2em; opacity:0.9;">Four ways. One engine.</p>
+      <aside class="notes">Jira UI. Automation. Agent assignee. Terminal. Same Rovo Dev underneath — pick the surface that fits the moment.</aside>
     </section>
 
-    <!-- Weg 1 Setup -->
+    <!-- Way 1 · Jira UI -->
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Weg 1 · Jira UI</div>
-        <h2>Ein Klick.<br>Ein Draft PR.</h2>
-        <p>Rovo Dev sitzt in der Jira-Sidebar. Ticket öffnen, <strong>Generate Code</strong>, Repo wählen — fertig.</p>
-        <div class="flow" style="margin-top:1.2em;">
-          <span class="flow-step active">Jira UI</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step">Automation</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step">Terminal</span>
-        </div>
+        <div class="sign-label">Way 1 · Jira UI</div>
+        <h2>One click.<br>One draft PR.</h2>
+        <p>Rovo Dev lives in the Jira sidebar. Open a ticket, hit <strong>Generate Code</strong>, pick a repo. Done.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Best for: PMs and tech leads working ticket-by-ticket.</p>
       </div>
       <div class="sign-image">
         <div class="ticket-card">
@@ -787,35 +1097,22 @@
           <div class="ticket-title">Add GET /deployments/:env endpoint</div>
           <div class="ticket-meta"><span>Story</span><span>Fix Version: 1.1.0</span></div>
           <ul>
-            <li>User Story + Acceptance Criteria</li>
-            <li>Response-Format spezifiziert</li>
+            <li>User story + acceptance criteria</li>
+            <li>Response format specified</li>
             <li>Repo: release-rocket-api</li>
           </ul>
         </div>
       </div>
-      <aside class="notes">RRA-1 hat eine saubere User Story. Je konkreter das Ticket, desto besser das Ergebnis.</aside>
+      <aside class="notes">RRA-1 has a clean user story. The more concrete the ticket, the better the result.</aside>
     </section>
 
-    <!-- Live Demo 1 -->
-    <section data-background-color="#18595D">
-      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo</div>
-      <h1 style="color:#fff;">Jira UI →<br>Generate Code →<br>Draft PR.</h1>
-      <aside class="notes">[RRA-1 → Rovo Dev Sidebar → Generate Code → release-rocket-api → warten → PR auf GitHub zeigen]</aside>
-    </section>
-
-    <!-- Weg 2 Setup -->
+    <!-- Way 2 · Automation -->
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Weg 2 · Automation</div>
-        <h2>Ein Label reicht.</h2>
-        <p>Tech Lead setzt ein Label. Rovo startet. Morgens sind die Draft PRs da.</p>
-        <div class="flow" style="margin-top:1.2em;">
-          <span class="flow-step done">Jira UI ✓</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step active">Automation</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step">Terminal</span>
-        </div>
+        <div class="sign-label">Way 2 · Automation</div>
+        <h2>One label is all<br>it takes.</h2>
+        <p>Tech lead sets a label. Rovo kicks off. By morning, the draft PRs are ready.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Best for: zero-touch backlog grooming across a whole team.</p>
       </div>
       <div class="sign-image">
         <div class="agent-box" style="background: var(--bg-light); border: none; box-shadow: none;">
@@ -826,143 +1123,108 @@
           <div class="agent-row"><span class="tag tag-knowledge">Repo</span> release-rocket-api</div>
         </div>
       </div>
-      <aside class="notes">Das skaliert über das ganze Team. Draft PR — nicht Auto-Merge. Review bleibt beim Menschen.</aside>
+      <aside class="notes">This scales across the whole team. Draft PR, not auto-merge. Review stays with humans.</aside>
     </section>
 
-    <!-- Live Demo 2 -->
-    <section data-background-color="#18595D">
-      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo</div>
-      <h1 style="color:#fff;">Label setzen.<br>PR erscheint.</h1>
-      <aside class="notes">[RRA-2 öffnen → Label `ready-for-dev` setzen → Audit Log zeigen → warten → PR entsteht. Fallback: Screenshots]</aside>
-    </section>
-
-    <!-- Weg 3 Setup -->
+    <!-- Way 3 · Agent assignee -->
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Weg 3 · Terminal</div>
-        <h2>Für Entwickler,<br>die im Terminal<br>bleiben wollen.</h2>
-        <p><strong>acli rovodev run</strong> — Rovo kennt Jira-Tickets, Confluence-Docs und euren Code, ohne dass ihr das Terminal verlasst.</p>
-        <div class="flow" style="margin-top:1.2em;">
-          <span class="flow-step done">Jira UI ✓</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step done">Automation ✓</span>
-          <span class="flow-arrow">→</span>
-          <span class="flow-step active">Terminal</span>
+        <div class="sign-label">Way 3 · Agent assignee</div>
+        <h2>Hand it off<br>like to a teammate.</h2>
+        <p>Set the ticket's assignee to the Rovo agent. It picks it up — same flow your team already uses for any other handoff.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Best for: teams that already route work through the assignee field.</p>
+      </div>
+      <div class="sign-image">
+        <div class="ticket-card">
+          <div class="ticket-key">RRA-3</div>
+          <div class="ticket-title">Increase health-check timeout to 5s</div>
+          <div class="ticket-meta"><span>Task</span><span class="lbl-dev">Backend</span></div>
+          <div style="margin-top: 0.9em; padding-top: 0.7em; border-top: 1px solid var(--border);">
+            <div style="font-size: 0.8em; color: var(--text-subtle); margin-bottom: 0.45em; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;">Assignee</div>
+            <div style="display: flex; align-items: center; gap: 0.6em;">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--lake-teal-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.78em;font-weight:700;">R</div>
+              <div>
+                <div style="font-weight:700; font-size:0.95em; color:var(--text);">Rovo Agent</div>
+                <div style="font-size:0.78em; color:var(--text-subtle);">picked up · just now</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <aside class="notes">No new ritual. If your team already routes work via assignee, Rovo just becomes another teammate. Works hand-in-hand with automation: rule sets assignee = Rovo, agent takes over.</aside>
+    </section>
+
+    <!-- Way 4 · Terminal -->
+    <section class="sign-slide">
+      <div class="sign-content">
+        <div class="sign-label">Way 4 · Terminal</div>
+        <h2>Stay in the shell.<br>Keep the context.</h2>
+        <p><strong><span class="mono">acli rovodev run</span></strong>: Rovo knows your Jira tickets, Confluence docs, and your code without you ever leaving the terminal.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Best for: developers who don't want to context-switch into a browser.</p>
       </div>
       <div class="sign-image">
         <div class="terminal">
           <span class="prompt">$</span> <span class="cmd">acli rovodev run</span><br>
           <span class="output">✓ Connected · jopnelli.atlassian.net</span><br><br>
-          <span class="prompt">rovo&gt;</span> <span class="cmd">Implementiere RRA-5</span><br>
+          <span class="prompt">rovo&gt;</span> <span class="cmd">Implement RRA-5</span><br>
           <span class="comment"># reads Jira ticket</span><br>
           <span class="comment"># reads Confluence runbooks</span><br>
           <span class="comment"># analyzes local repo</span><br>
           <span class="comment"># generates code — locally</span>
         </div>
       </div>
-      <aside class="notes">Für Entwickler, die im Flow bleiben. Kein Kontext-Switch. Jira und Confluence sind im Terminal.</aside>
+      <aside class="notes">For developers who stay in flow. No context switch. Jira and Confluence are right there in the terminal.</aside>
     </section>
 
-    <!-- Live Demo 3 -->
+    <!-- Live Demo · all four together -->
     <section data-background-color="#18595D">
-      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo</div>
-      <h1 style="color:#fff;">Jira-Kontext<br>im Terminal.</h1>
-      <aside class="notes">[acli rovodev run → Prompt mit RRA-5 → zeigen wie Rovo Jira + Confluence liest → Code lokal]</aside>
+      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo · all four, one repo</div>
+      <h1 style="color:#fff;">One ticket pile.<br>Four invocations.<br>Four draft PRs.</h1>
+      <aside class="notes">Single demo, four runs against release-rocket-api. (1) RRA-1 → Generate Code in the Jira sidebar. (2) RRA-2 → set label `ready-for-dev`, automation rule kicks in. (3) RRA-3 → set assignee = Rovo Agent, agent takes it. (4) RRA-5 → `acli rovodev run` from terminal with Jira + Confluence context. All four end with a draft PR on GitHub. Fallback: screenshots for any that lag.</aside>
     </section>
 
-    <!-- Takeaway 1 -->
+    <!-- Takeaway · Block 01 -->
     <section>
-      <div class="eyebrow">Fazit Teil 01</div>
-      <h2>Drei Interfaces.<br>Eine Engine.</h2>
-      <div class="grid-3">
+      <div class="eyebrow">Takeaway · Block 01</div>
+      <h2>Four interfaces.<br>One engine.</h2>
+      <div class="grid-2" style="margin-top:1em;">
         <div class="tk-card fragment fade-up">
           <h3>Jira UI</h3>
-          <p>Schneller Klick. PMs und Tech Leads.</p>
+          <p>Quick click. PMs and tech leads.</p>
         </div>
         <div class="tk-card fragment fade-up">
           <h3>Automation</h3>
-          <p>Zero-Touch. Skaliert aufs Team.</p>
+          <p>Zero-touch. Scales to the team.</p>
+        </div>
+        <div class="tk-card fragment fade-up">
+          <h3>Agent assignee</h3>
+          <p>Rovo as a teammate. Fits existing handoff patterns.</p>
         </div>
         <div class="tk-card fragment fade-up">
           <h3>Terminal</h3>
-          <p>Voller Kontext ohne Browser-Wechsel.</p>
+          <p>Full context without leaving the shell.</p>
         </div>
       </div>
-      <p class="subtle" style="margin-top:1.4em;">80 % richtig in 2 Minuten. 20 % Nacharbeit bleibt.<br>Der Wert: ihr fangt bei 80 % an, nicht bei 0 %.</p>
-      <aside class="notes">Wählt was zu eurem Workflow passt. Gleiche Engine dahinter.</aside>
+      <p class="subtle" style="margin-top:1.2em;">80% right in 2 minutes. 20% rework remains.<br>The value: you start at 80%, not at 0%.</p>
+      <aside class="notes">Pick what fits your workflow. Native Jira/Confluence context is the edge over generic code assistants.</aside>
     </section>
 
     <!-- ============================ -->
-    <!-- ACT 3: CI/CD TRIAGE -->
-    <!-- ============================ -->
-
-    <section data-background-color="#02464B">
-      <div class="live-eyebrow">Teil 02 · 8 Minuten</div>
-      <h1 style="color:#fff;">CI/CD Triage.</h1>
-      <p style="font-size:1.2em; opacity:0.9;">Wenn die Pipeline rot ist.</p>
-    </section>
-
-    <section class="sign-slide">
-      <div class="sign-content">
-        <div class="sign-label">Das Szenario</div>
-        <h2>Jemand hat<br>die Dependency<br>vergessen.</h2>
-        <p>Classic: Import hinzugefügt, <span class="mono">npm install</span> vergessen. CI ist rot. Niemand will sich drum kümmern.</p>
-        <p class="subtle small" style="margin-top:0.8em;">Branch: <span class="mono">fix/auth-middleware</span> · Ticket: RRA-4</p>
-      </div>
-      <div class="sign-image">
-        <div class="pipeline-fail">
-          <div class="hdr">✗ Build Failed</div>
-          <div><span class="muted">▶ install</span> <span class="check">✓</span></div>
-          <div><span class="muted">▶ lint</span> <span class="check">✓</span></div>
-          <div><span class="muted">▶ test</span> <span class="fail">✗ failed</span></div>
-          <br>
-          <div class="muted">src/middleware/auth.ts:3:23</div>
-          <div class="fail">error TS2307: Cannot find module 'jsonwebtoken'</div>
-          <div class="muted">or its corresponding type declarations.</div>
-        </div>
-      </div>
-      <aside class="notes">TypeScript kann nicht kompilieren. jsonwebtoken fehlt in package.json.</aside>
-    </section>
-
-    <section data-background-color="#18595D">
-      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo</div>
-      <h1 style="color:#fff;">Pipeline Log →<br>Root Cause →<br>Fix PR.</h1>
-      <aside class="notes">[GitHub Actions Failed Run zeigen → RRA-4 öffnen → Generate Code → Rovo analysiert → Fix]</aside>
-    </section>
-
-    <section>
-      <div class="eyebrow">Fazit Teil 02</div>
-      <h2>Bei klaren Fehlern<br>beeindruckend schnell.<br>Bei vagen Problemen<br>hilft nur noch ein Mensch.</h2>
-      <div class="grid-2">
-        <div class="close-card good">
-          <div class="lbl">Was funktioniert</div>
-          <p>Klare Codefehler. Fehlende Dependencies. Import-Fehler. Flaky Tests erkennbar.</p>
-        </div>
-        <div class="close-card warn">
-          <div class="lbl">Grenzen</div>
-          <p>Multi-Step-Failures. Infrastruktur-Probleme. Automatische CI-Integration ist noch nicht GA.</p>
-        </div>
-      </div>
-      <aside class="notes">Bei klaren Fehlern beeindruckend schnell. Bei vagen Infrastruktur-Problemen — da hilft nur noch ein Mensch.</aside>
-    </section>
-
-    <!-- ============================ -->
-    <!-- ACT 4: CUSTOM AGENT -->
+    <!-- BLOCK 02: CUSTOM DEVOPS AGENTS -->
     <!-- ============================ -->
 
     <section data-background-color="#02464B">
-      <div class="live-eyebrow">Teil 03 · 8 Minuten</div>
-      <h1 style="color:#fff;">Custom DevOps<br>Agents.</h1>
+      <div class="live-eyebrow">Block 02 · ~7 minutes</div>
+      <h1 style="color:#fff;">Custom DevOps<br>agents.</h1>
       <p style="font-size:1.2em; opacity:0.9;">Rovo Studio.</p>
     </section>
 
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Beispiel · Release Notes Generator</div>
-        <h2>Sag <span class="accent">&ldquo;1.1.0&rdquo;</span>.<br>Bekomm Release Notes.</h2>
-        <p>Der Agent kennt euer Jira-Projekt, eure Confluence-Templates und euer Repo. Ihr nennt eine Fix Version — er synthetisiert strukturierte Notes.</p>
-        <p class="subtle small" style="margin-top:0.6em;">Seit Oktober 2025: <strong>Scenarios</strong> pro Agent. Jedes Scenario mit eigenem Trigger, Knowledge und Skills.</p>
+        <div class="sign-label">Example · Release Notes Generator</div>
+        <h2>Say <span class="accent">&ldquo;1.1.0&rdquo;</span>.<br>Get release notes.</h2>
+        <p>The agent knows your Jira project, your Confluence templates, and your repo. You name a fix version, it synthesizes structured notes.</p>
+        <p class="subtle small" style="margin-top:0.6em;">Since October 2025: <strong>scenarios</strong> per agent. Each scenario has its own trigger, knowledge, and skills.</p>
       </div>
       <div class="sign-image">
         <div class="agent-box">
@@ -971,100 +1233,291 @@
           <div class="agent-row"><span class="tag tag-knowledge">Knowledge</span> Jira RRA</div>
           <div class="agent-row"><span class="tag tag-knowledge">Knowledge</span> Confluence RRADOCS</div>
           <div class="agent-row"><span class="tag tag-knowledge">Knowledge</span> release-rocket-api</div>
-          <div class="agent-row"><span class="tag tag-scenario">Scenario A</span> Chat-Prompt</div>
+          <div class="agent-row"><span class="tag tag-scenario">Scenario A</span> Chat prompt</div>
           <div class="agent-row"><span class="tag tag-scenario">Scenario B</span> Jira: Version released</div>
           <div class="agent-row"><span class="tag tag-skill">Skill</span> Search Jira</div>
           <div class="agent-row"><span class="tag tag-skill">Skill</span> Create Confluence page</div>
         </div>
       </div>
-      <aside class="notes">Scenario A: Chat-Prompt, manuell. Scenario B: Jira-Automation triggert, Agent draftet Confluence-Seite.</aside>
+      <aside class="notes">Scenario A: chat prompt, manual. Scenario B: Jira automation triggers, agent drafts a Confluence page.</aside>
+    </section>
+
+    <!-- Custom actions via Forge — already possible, not yet broadly used -->
+    <section class="sign-slide">
+      <div class="sign-content">
+        <div class="sign-label">Custom actions · already shipping</div>
+        <h2>Skills,<br>from any Forge app.</h2>
+        <p>Any Forge app — yours or from the Marketplace — can already register <strong>custom actions</strong>. Agents call them like built-in skills. <strong>The platform is open today;</strong> the Marketplace catalog is just starting to catch up.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Example: <em>"Diagram the new auth flow."</em> A Forge app registers a draw.io action — Rovo calls it, and the <strong>draw.io</strong> file lands in Confluence.</p>
+      </div>
+      <div class="sign-image">
+        <div style="display:flex; flex-direction:column; gap:0.7em; width:100%; max-width:420px;">
+          <!-- Skill banner -->
+          <div style="display:flex; align-items:center; gap:0.6em; padding:0.6em 0.85em; background:#fff; border:1px solid var(--border); border-radius:8px; font-size:0.78em; box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+            <span style="font-size:0.6em; font-weight:700; padding:3px 8px; background:#E9D8FD; color:#6B21A8; border-radius:4px; text-transform:uppercase; letter-spacing:0.05em;">Marketplace</span>
+            <span style="font-weight:700;">draw.io · Generate diagram</span>
+            <span style="margin-left:auto; color:var(--text-subtle); font-size:0.78em;">custom action</span>
+          </div>
+
+          <!-- draw.io output preview -->
+          <div style="background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <div style="display:flex; align-items:center; gap:0.4em; padding:0.4em 0.7em; border-bottom:1px solid var(--border); font-size:0.7em; color:var(--text-subtle);">
+              <span style="width:8px; height:8px; border-radius:50%; background:#FF5D50;"></span>
+              <span style="width:8px; height:8px; border-radius:50%; background:#FDB733;"></span>
+              <span style="width:8px; height:8px; border-radius:50%; background:#28AC9B;"></span>
+              <span class="mono" style="margin-left:0.5em;">auth-flow-v2.drawio</span>
+            </div>
+            <svg viewBox="0 0 400 230" style="display:block; width:100%; height:auto; padding:10px; box-sizing:border-box;">
+              <defs>
+                <marker id="dia-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#5e5e5e"/>
+                </marker>
+              </defs>
+              <g font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" dominant-baseline="central">
+                <!-- User (plain) -->
+                <rect x="10" y="92" width="80" height="44" rx="3" fill="#fff" stroke="#999" stroke-width="1.4"/>
+                <text x="50" y="114" fill="#333">User</text>
+                <!-- API (light blue) -->
+                <rect x="140" y="92" width="100" height="44" rx="3" fill="#dae8fc" stroke="#6c8ebf" stroke-width="1.4"/>
+                <text x="190" y="114" fill="#1f3a5f">API Gateway</text>
+                <!-- Auth (yellow) -->
+                <rect x="290" y="24" width="100" height="44" rx="3" fill="#fff2cc" stroke="#d6b656" stroke-width="1.4"/>
+                <text x="340" y="46" fill="#7a5e00">Auth</text>
+                <!-- Database (green) -->
+                <rect x="290" y="160" width="100" height="44" rx="3" fill="#d5e8d4" stroke="#82b366" stroke-width="1.4"/>
+                <text x="340" y="182" fill="#1c4d1e">Database</text>
+              </g>
+              <!-- Arrows -->
+              <line x1="90"  y1="114" x2="136" y2="114" stroke="#5e5e5e" stroke-width="1.4" marker-end="url(#dia-arr)"/>
+              <line x1="240" y1="104" x2="287" y2="58"  stroke="#5e5e5e" stroke-width="1.4" marker-end="url(#dia-arr)"/>
+              <line x1="240" y1="124" x2="287" y2="178" stroke="#5e5e5e" stroke-width="1.4" marker-end="url(#dia-arr)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">Important framing: this is already possible — Forge apps can register custom actions today, agents can call them. It's just not broadly used yet. Anyone can build a Forge app and ship a custom action; the Marketplace catalog hasn't caught up. As more apps (draw.io, Smart Links, your in-house DevOps tool) register actions, the agent's reach grows without Atlassian shipping every skill themselves. The draw.io example sits at the Release station because diagrams ship with the release.</aside>
     </section>
 
     <section data-background-color="#18595D">
       <div class="live-eyebrow"><span class="live-dot"></span>Live Demo</div>
-      <h1 style="color:#fff;">Release Notes<br>für 1.1.0.</h1>
-      <aside class="notes">[Rovo Studio → Release Notes Generator → Scenario A triggern → Ergebnis zeigen. Optional: Version 1.1.0 released setzen → Draft in Confluence erscheint]</aside>
+      <h1 style="color:#fff;">Release notes<br>for 1.1.0.</h1>
+      <aside class="notes">[Rovo Studio → Release Notes Generator → trigger Scenario A → show result. Optional: set version 1.1.0 to released → draft appears in Confluence]</aside>
     </section>
 
     <section>
-      <div class="eyebrow">Fazit Teil 03</div>
-      <h2>Low-Code für<br>wiederkehrende<br>DevOps-Aufgaben.</h2>
+      <div class="eyebrow">Takeaway · Block 02</div>
+      <h2>Low-code for<br>recurring<br>DevOps tasks.</h2>
       <div class="grid-2">
         <div class="close-card good">
-          <div class="lbl">Stärke</div>
-          <p>Knowledge Sources machen den Unterschied. Strukturierte Outputs in Sekunden statt Minuten.</p>
+          <div class="lbl">Strength</div>
+          <p>Knowledge sources make the difference. Structured outputs in seconds, not minutes.</p>
         </div>
         <div class="close-card watch">
-          <div class="lbl">Noch nicht da</div>
-          <p>Skills-Gallery wächst. Custom Actions brauchen Forge — kein No-Code.</p>
+          <div class="lbl">Not there yet</div>
+          <p>Skills gallery is growing. Custom actions need Forge, not no-code.</p>
         </div>
       </div>
-      <aside class="notes">Der Agent ist in 10 Minuten gebaut. Qualität hängt an den Knowledge Sources.</aside>
+      <aside class="notes">The agent is built in 10 minutes. Quality depends on the knowledge sources.</aside>
     </section>
 
     <!-- ============================ -->
-    <!-- ACT 5: HONEST CLOSE -->
+    <!-- TRANSITION QUESTION → PART 2 -->
     <!-- ============================ -->
 
     <section data-background-color="#02464B">
-      <div class="quote-mark">&ldquo;</div>
-      <div class="quote-text">Rovo beschleunigt den Inner Dev Loop.<br>Es ersetzt keine Engineers.</div>
-      <p class="quote-attr">— Ehrlich bleiben.</p>
+      <div class="live-eyebrow" style="color: var(--apple-green); font-size: 0.95em;">Pause &amp; ponder</div>
+      <h1 style="color:#fff; font-size: 3.4em;">What if agents<br>didn't stop<br>at code?</h1>
+      <p style="font-size:1.2em; opacity:0.9; margin-top:0.8em;">From <em>writing</em> something — to <span style="color:var(--apple-green); font-weight:700;">doing</span> something.</p>
+      <aside class="notes">Pause point. Everything in Part 1 was about agents producing artifacts: code, PRs, release notes, diagrams. Part 2 is about agents that take actions in real systems — licenses, accounts, board admin. Same primitives; new surface area.</aside>
     </section>
 
-    <section>
-      <div class="eyebrow">Einordnung — jetzt mit Farbe</div>
-      <h2>Wo Rovo heute steht.</h2>
+    <!-- ============================ -->
+    <!-- PART 2 · IT MANAGEMENT WITH AUTONOMOUS AGENTS -->
+    <!-- ============================ -->
 
-      <div class="lifecycle-bar">
-        <div class="lc-stage lc-stage-emerging"><span class="lc-num">1</span><span class="lc-name">Planung</span></div>
-        <div class="lc-stage lc-stage-missing"><span class="lc-num">2</span><span class="lc-name">Design</span></div>
-        <div class="lc-stage lc-stage-mature"><span class="lc-num">3</span><span class="lc-name">Coding</span></div>
-        <div class="lc-stage lc-stage-mature"><span class="lc-num">4</span><span class="lc-name">Review</span></div>
-        <div class="lc-stage lc-stage-emerging"><span class="lc-num">5</span><span class="lc-name">Testing</span></div>
-        <div class="lc-stage lc-stage-mature"><span class="lc-num">6</span><span class="lc-name">CI/CD</span></div>
-        <div class="lc-stage lc-stage-mature"><span class="lc-num">7</span><span class="lc-name">Release</span></div>
-        <div class="lc-stage lc-stage-missing"><span class="lc-num">8</span><span class="lc-name">Monitoring</span></div>
-        <div class="lc-stage lc-stage-emerging"><span class="lc-num">9</span><span class="lc-name">Docs</span></div>
-      </div>
-
-      <div class="lc-legend">
-        <span><span class="lc-dot lc-mature"></span>zuverlässig heute</span>
-        <span><span class="lc-dot lc-emerging"></span>emerging</span>
-        <span><span class="lc-dot lc-missing"></span>nicht reif</span>
-      </div>
-
-      <p style="margin-top:1.4em; font-size:1.05em;">Zuverlässig sind heute einzelne Stationen, nicht der ganze Lifecycle.</p>
-      <p class="subtle" style="margin-top:0.4em;">Alles, was wir gezeigt haben, liegt im grünen Bereich — das ist der Teil, der heute wirklich liefert.</p>
-
-      <aside class="notes">4 von 9 Lifecycle-Stationen sind mit Rovo heute zuverlässig: Coding, Review, CI/CD-Triage, Release. Planning, Testing und Docs sind emerging. Design und Monitoring hat Rovo noch nicht. Wer End-to-End-Feature-Delivery verspricht, verkauft Hype — das gilt für alle Tools im Markt, nicht nur für Rovo.</aside>
+    <section data-background-color="#02464B">
+      <div class="live-eyebrow" style="color: var(--apple-green); font-size: 0.95em;">Part 2 · ~10 minutes</div>
+      <h1 style="color:#fff; font-size: 3.2em;">IT Management with<br>Autonomous Agents.</h1>
+      <p style="font-size:1.2em; opacity:0.9; margin-top:0.6em;">Routine tickets, handled by agents —<br>the same primitives, a different surface.</p>
+      <aside class="notes">Switching gears. Same primitives — LLMs, tool use, browser control — but the surface is IT support: licenses, accounts, board cleanup. We built this internally and are productizing it as Agentic IT Support.</aside>
     </section>
 
-    <!-- Takeaway -->
-    <section>
-      <div class="eyebrow">Was heißt das für euch</div>
-      <h2>Klein anfangen<br>und ehrlich messen.</h2>
-      <div style="margin-top:1.2em;">
-        <div class="close-card good fragment fade-up">
-          <div class="lbl">Anfangen mit</div>
-          <p>Rovo Dev für einfache Tickets · CLI für Entwickler · Automation für Skalierung · nativer Jira/Confluence-Context ist der echte Vorteil gegenüber generischen Code-Assistenten</p>
-        </div>
-        <div class="close-card warn fragment fade-up">
-          <div class="lbl">Vorsicht bei</div>
-          <p>Output variiert zwischen Runs · Multi-Step-Workflows brauchen Review</p>
-        </div>
-        <div class="close-card watch fragment fade-up">
-          <div class="lbl">Was bald kommt</div>
-          <p>Automatische CI-Analyse als nativer Trigger · neue Modelle im Rovo-Katalog · Scenarios &amp; Skills werden erwachsen</p>
+    <!-- The scenario -->
+    <section class="sign-slide">
+      <div class="sign-content">
+        <div class="sign-label">The scenario</div>
+        <h2>One sentence<br>in a chat.</h2>
+        <p>No ticket form. No license portal. No help-desk queue. An employee just asks — in the same channel where the rest of work happens.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Routine IT work — licenses, accounts, board access — eats <strong>5–15 minutes per request</strong>. Times hundreds a week. The agent finishes in under three.</p>
+      </div>
+      <div class="sign-image">
+        <div class="chat-mock">
+          <div class="chat-row">
+            <div class="chat-avatar av-user">SK</div>
+            <div>
+              <div class="chat-meta">Sarah · 09:41</div>
+              <div class="chat-msg"><span class="mention">@helpme</span> I need a GitHub license</div>
+            </div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-avatar av-bot">AI</div>
+            <div>
+              <div class="chat-meta">@helpme · 09:41</div>
+              <div class="chat-msg">Sure — free seat or Copilot? You're on the platform team, so I'll add you to <strong>seibert-group/engineering</strong> with Copilot. Confirm?</div>
+            </div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-avatar av-user">SK</div>
+            <div>
+              <div class="chat-meta">Sarah · 09:41</div>
+              <div class="chat-msg">yes please</div>
+            </div>
+          </div>
         </div>
       </div>
+      <aside class="notes">The most common IT requests aren't outages — they're routine. Licenses, accounts, board access. Each one is small. Multiplied by hundreds a week, that's an FTE of pure ticket-clicking. The chatbot answers from RAG when it can, and only files a ticket when an action is needed.</aside>
+    </section>
+
+    <!-- Architecture diagram -->
+    <section>
+      <div class="eyebrow">Architecture · How a chat message becomes autonomous action</div>
+      <h2 style="font-size: 1.7em;">From <span class="mono" style="font-size:0.9em;">@helpme</span> to a real change in a real system.</h2>
+
+      <div class="agentic-arch" style="height:540px;">
+        <svg viewBox="0 0 1360 540" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="arr-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#010920"/>
+            </marker>
+            <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#28AC9B"/>
+            </marker>
+            <marker id="arr-lilac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#828BE2"/>
+            </marker>
+          </defs>
+
+          <!-- User <-> Chatbot bidirectional -->
+          <line x1="262" y1="55" x2="298" y2="55" stroke="#010920" stroke-width="2" marker-end="url(#arr-dark)"/>
+          <line x1="298" y1="75" x2="262" y2="75" stroke="#010920" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+          <!-- Chatbot down → Jira ticket -->
+          <path d="M 410 90 L 410 220 L 110 220 L 110 268" stroke="#010920" stroke-width="2" fill="none" marker-end="url(#arr-dark)"/>
+
+          <!-- Linear flow at y=305: Jira → Automation → Inbox → Triage -->
+          <line x1="200" y1="305" x2="218" y2="305" stroke="#010920" stroke-width="2" marker-end="url(#arr-dark)"/>
+          <line x1="500" y1="305" x2="548" y2="305" stroke="#010920" stroke-width="2" marker-end="url(#arr-dark)"/>
+          <line x1="700" y1="305" x2="718" y2="305" stroke="#010920" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+          <!-- Triage → Specialists box (single arrow) -->
+          <line x1="870" y1="305" x2="908" y2="305" stroke="#28AC9B" stroke-width="2" marker-end="url(#arr-teal)"/>
+
+          <!-- Feedback loop: Triage → user (dashed lilac) -->
+          <path d="M 720 270 L 720 180 L 150 180 L 150 90" stroke="#828BE2" stroke-width="1.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arr-lilac)"/>
+          <rect x="270" y="165" width="300" height="22" fill="#ffffff"/>
+          <text x="420" y="180" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#828BE2">clarifying questions back to user</text>
+        </svg>
+
+        <!-- Conversational layer frame -->
+        <div class="arch-frame arch-frame-section1" style="height:110px;">
+          <div class="arch-frame-label">Conversational layer</div>
+        </div>
+
+        <!-- Claude or Rovo Dev on Virtual Machine frame (teal) -->
+        <div class="arch-frame arch-frame-claude" style="left:530px; top:230px; width:810px; height:290px;">
+          <div class="arch-frame-label">Claude or Rovo Dev on Virtual Machine</div>
+        </div>
+
+        <!-- User node -->
+        <div class="arch-node" style="left:40px; top:30px; width:220px; height:60px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0;">User</strong>
+        </div>
+
+        <!-- Chatbot node -->
+        <div class="arch-node" style="left:300px; top:30px; width:220px; height:60px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0;">Chatbot</strong>
+        </div>
+
+        <!-- Jira Ticket -->
+        <div class="arch-node" style="left:20px; top:270px; width:180px; height:70px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0;">Jira Ticket</strong>
+        </div>
+
+        <!-- Automation (via webhook event) -->
+        <div class="arch-node" style="left:220px; top:270px; width:280px; height:70px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0; line-height:1.25;">Automation<br>(via webhook event)</strong>
+        </div>
+
+        <!-- Inbox Agent (inside green frame) -->
+        <div class="arch-node arch-node-triage" style="left:550px; top:270px; width:150px; height:70px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0;">Inbox Agent</strong>
+        </div>
+
+        <!-- Triage Agent (inside green frame) -->
+        <div class="arch-node arch-node-triage" style="left:720px; top:270px; width:150px; height:70px; display:flex; align-items:center;">
+          <strong style="margin-bottom:0;">Triage Agent</strong>
+        </div>
+
+        <!-- Specialists Agents sub-frame -->
+        <div class="specs-frame" style="left:910px; top:250px; width:410px;">
+          <div class="specs-frame-label">Specialists Agents</div>
+          <div class="specs-row">
+            <span class="spec-pill">Miro</span>
+            <span class="spec-pill">GitHub</span>
+            <span class="spec-pill">Calendly</span>
+          </div>
+          <div class="specs-row">
+            <span class="spec-pill">Billomat</span>
+            <span class="spec-pill">Figma</span>
+            <span class="spec-pill">…</span>
+          </div>
+          <span class="spec-pill spec-pill-coding">Coding Agents</span>
+          <span class="spec-pill spec-pill-fallback">Generic fallback</span>
+        </div>
+
+        <!-- Caption / footnote -->
+        <div class="specs-caption" style="left:550px; top:493px; width:780px;">
+          *Specialists use either Chrome DevTools MCP + headless browser, or API.
+        </div>
+      </div>
+
+      <aside class="notes">Walk left to right. (1) User pings @helpme in Google Chat. (2) The chatbot does RAG over Confluence — answers when it can, otherwise files a Jira ticket. (3) Jira automation fires a webhook event that wakes Claude / Rovo Dev on a virtual machine. (4) Inbox Agent decides — auto-resolve, escalate, or route. (5) Triage Agent picks the right specialist. (6) Specialists are pluggable: SaaS-specific (Miro, GitHub, Calendly, Billomat, Figma...), plus a Coding Agents row and a Generic fallback for unmatched requests. Each specialist drives its target tool via API where one exists, otherwise via Chrome DevTools MCP + a headless browser. Dashed line: clarifying questions loop back to the user.</aside>
+    </section>
+
+    <!-- Takeaway · Part 2 -->
+    <section>
+      <div class="eyebrow">Takeaway · Part 2</div>
+      <h2>The pattern:<br>Inbox → Triage → Specialized.</h2>
+      <div class="grid-3">
+        <div class="tk-card">
+          <h3>Inbox Agent</h3>
+          <p>Reads, categorizes, decides: auto-resolve, ask back, or escalate.</p>
+        </div>
+        <div class="tk-card">
+          <h3>Triage Agent</h3>
+          <p>Picks the right tool, the right action, the right user. Dispatches.</p>
+        </div>
+        <div class="tk-card">
+          <h3>Specialized Agents</h3>
+          <p>Drive the SaaS — API where available, headless browser where not.</p>
+        </div>
+      </div>
+      <p class="subtle" style="margin-top:1.4em;">Browser-native control is the unlock: any tool with an admin UI is automatable, no vendor integration required.</p>
+      <aside class="notes">Three roles, mirrors how a real IT team works: inbox decides, triage routes, specialists act. Browser-control means you can apply this to any tool — license management, board cleanup, calendar admin — without waiting on vendor APIs. That's the bridge from "Rovo answers questions" to "agents take action."</aside>
+    </section>
+
+    <!-- Part 2 Live Demo -->
+    <section data-background-color="#18595D">
+      <div class="live-eyebrow"><span class="live-dot"></span>Live Demo · @helpme, end-to-end</div>
+      <h1 style="color:#fff;">From chat message<br>to GitHub seat —<br>no hands.</h1>
+      <aside class="notes">Single demo, end-to-end. (1) In Google Chat: <code>@helpme I need a GitHub license</code>. (2) Chatbot replies asking for confirmation (free seat vs. Copilot). (3) On confirm, ticket lands in Jira; webhook fires. (4) Agent on the VM wakes up: Inbox classifies, Triage routes to the GitHub specialist. (5) GitHub specialist drives the admin UI via Chrome DevTools, grants the seat. (6) Reply lands back in chat: "done — you've been added to seibert-group/engineering." Fallback: screen recording if anything stalls. Total wall-clock: ~30 seconds.</aside>
     </section>
 
     <!-- Q&A -->
     <section data-background-color="#02464B">
-      <h1 style="color:#fff; font-size:4.5em;">Fragen.<br>Erfahrungen.<br>Herausforderungen.</h1>
-      <p style="font-size:1.1em; opacity:0.9; margin-top:0.8em;">Jonathan Pusinelli &middot; Seibert Group</p>
-      <aside class="notes">10 Minuten Q&A. Danach Flur.</aside>
+      <h1 style="color:#fff; font-size:4.5em;">Questions.<br>Experiences.<br>Challenges.</h1>
+      <p style="font-size:1.1em; opacity:0.9; margin-top:0.8em;">Clara Berenberg &middot; Seibert Group</p>
+      <aside class="notes">10 minutes Q&A. Then in the hallway.</aside>
     </section>
 
   </div>
