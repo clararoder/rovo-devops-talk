@@ -1051,7 +1051,7 @@
     <!-- DevOps Lifecycle Orientation (neutral, no colors yet) -->
     <section>
       <div class="eyebrow">Orientation</div>
-      <h2>The software lifecycle<br>has nine stations.</h2>
+      <h2>Where Rovo<br>earns its keep.</h2>
 
       <div class="lifecycle-bar">
         <div class="lc-focus-frame block1" data-label="Block 1"></div>
@@ -1093,7 +1093,7 @@
       </div>
       <div class="sign-image">
         <div class="ticket-card">
-          <div class="ticket-key">RRA-1</div>
+          <div class="ticket-key">RDP-1</div>
           <div class="ticket-title">Add GET /deployments/:env endpoint</div>
           <div class="ticket-meta"><span>Story</span><span>Fix Version: 1.1.0</span></div>
           <ul>
@@ -1103,13 +1103,53 @@
           </ul>
         </div>
       </div>
-      <aside class="notes">RRA-1 has a clean user story. The more concrete the ticket, the better the result.</aside>
+      <aside class="notes">RDP-1 has a clean user story. The more concrete the ticket, the better the result.</aside>
     </section>
 
-    <!-- Way 2 · Automation -->
+    <!-- Way 2 · Agent assignee -->
     <section class="sign-slide">
       <div class="sign-content">
-        <div class="sign-label">Way 2 · Automation</div>
+        <div class="sign-label">Way 2 · Agent assignee</div>
+        <h2>Hand it off<br>like to a teammate.</h2>
+        <p>Set the ticket's assignee to the Rovo agent. It picks it up — same flow your team already uses for any other handoff.</p>
+        <p class="subtle small" style="margin-top:0.8em;">Best for: teams that already route work through the assignee field.</p>
+      </div>
+      <div class="sign-image">
+        <div style="width:100%; max-width:340px;">
+          <div style="font-size:0.72em; font-weight:700; color:var(--text-subtle); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;">Assignee · RDP-3</div>
+          <div style="background:#fff; border:1px solid var(--border); border-radius:10px; box-shadow:0 14px 36px rgba(0,0,0,0.10); overflow:hidden;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--border); background:var(--bg-light);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <img src="img/rovo.svg" alt="Rovo Dev" style="width:26px; height:26px; display:block;" />
+                <span style="font-size:0.92em; font-weight:600; color:var(--text);">Rovo Dev</span>
+              </div>
+              <span style="color:var(--text-subtle); font-size:0.85em; line-height:1;">▴</span>
+            </div>
+            <div style="padding:6px 0;">
+              <div style="display:flex; align-items:center; gap:10px; padding:9px 14px; font-size:0.86em; color:var(--text);">
+                <div style="width:24px; height:24px; border-radius:50%; background:#D7DCE8; color:var(--text-subtle); display:flex; align-items:center; justify-content:center; font-size:0.65em; font-weight:700;">CB</div>
+                Clara Berenberg
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; padding:9px 14px; font-size:0.86em; color:var(--text); background:rgba(40,172,155,0.10); border-left:3px solid var(--lake-teal-500);">
+                <img src="img/rovo.svg" alt="Rovo Dev" style="width:24px; height:24px; display:block;" />
+                <span style="font-weight:700;">Rovo Dev</span>
+                <span style="margin-left:auto; color:var(--lake-teal-500); font-weight:700;">✓</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; padding:9px 14px; font-size:0.86em; color:var(--text);">
+                <div style="width:24px; height:24px; border-radius:50%; background:#D7DCE8; color:var(--text-subtle); display:flex; align-items:center; justify-content:center; font-size:0.65em; font-weight:700;">SL</div>
+                Sam Lee
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">No new ritual. If your team already routes work via assignee, Rovo just becomes another teammate. Works hand-in-hand with automation (coming next): rule sets assignee = Rovo, agent takes over.</aside>
+    </section>
+
+    <!-- Way 3 · Automation -->
+    <section class="sign-slide">
+      <div class="sign-content">
+        <div class="sign-label">Way 3 · Automation</div>
         <h2>One label is all<br>it takes.</h2>
         <p>Tech lead sets a label. Rovo kicks off. By morning, the draft PRs are ready.</p>
         <p class="subtle small" style="margin-top:0.8em;">Best for: zero-touch backlog grooming across a whole team.</p>
@@ -1126,34 +1166,6 @@
       <aside class="notes">This scales across the whole team. Draft PR, not auto-merge. Review stays with humans.</aside>
     </section>
 
-    <!-- Way 3 · Agent assignee -->
-    <section class="sign-slide">
-      <div class="sign-content">
-        <div class="sign-label">Way 3 · Agent assignee</div>
-        <h2>Hand it off<br>like to a teammate.</h2>
-        <p>Set the ticket's assignee to the Rovo agent. It picks it up — same flow your team already uses for any other handoff.</p>
-        <p class="subtle small" style="margin-top:0.8em;">Best for: teams that already route work through the assignee field.</p>
-      </div>
-      <div class="sign-image">
-        <div class="ticket-card">
-          <div class="ticket-key">RRA-3</div>
-          <div class="ticket-title">Increase health-check timeout to 5s</div>
-          <div class="ticket-meta"><span>Task</span><span class="lbl-dev">Backend</span></div>
-          <div style="margin-top: 0.9em; padding-top: 0.7em; border-top: 1px solid var(--border);">
-            <div style="font-size: 0.8em; color: var(--text-subtle); margin-bottom: 0.45em; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;">Assignee</div>
-            <div style="display: flex; align-items: center; gap: 0.6em;">
-              <div style="width:32px;height:32px;border-radius:50%;background:var(--lake-teal-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.78em;font-weight:700;">R</div>
-              <div>
-                <div style="font-weight:700; font-size:0.95em; color:var(--text);">Rovo Agent</div>
-                <div style="font-size:0.78em; color:var(--text-subtle);">picked up · just now</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <aside class="notes">No new ritual. If your team already routes work via assignee, Rovo just becomes another teammate. Works hand-in-hand with automation: rule sets assignee = Rovo, agent takes over.</aside>
-    </section>
-
     <!-- Way 4 · Terminal -->
     <section class="sign-slide">
       <div class="sign-content">
@@ -1166,7 +1178,7 @@
         <div class="terminal">
           <span class="prompt">$</span> <span class="cmd">acli rovodev run</span><br>
           <span class="output">✓ Connected · jopnelli.atlassian.net</span><br><br>
-          <span class="prompt">rovo&gt;</span> <span class="cmd">Implement RRA-5</span><br>
+          <span class="prompt">rovo&gt;</span> <span class="cmd">Implement RDP-5</span><br>
           <span class="comment"># reads Jira ticket</span><br>
           <span class="comment"># reads Confluence runbooks</span><br>
           <span class="comment"># analyzes local repo</span><br>
@@ -1180,7 +1192,7 @@
     <section data-background-color="#18595D">
       <div class="live-eyebrow"><span class="live-dot"></span>Live Demo · all four, one repo</div>
       <h1 style="color:#fff;">One ticket pile.<br>Four invocations.<br>Four draft PRs.</h1>
-      <aside class="notes">Single demo, four runs against release-rocket-api. (1) RRA-1 → Generate Code in the Jira sidebar. (2) RRA-2 → set label `ready-for-dev`, automation rule kicks in. (3) RRA-3 → set assignee = Rovo Agent, agent takes it. (4) RRA-5 → `acli rovodev run` from terminal with Jira + Confluence context. All four end with a draft PR on GitHub. Fallback: screenshots for any that lag.</aside>
+      <aside class="notes">Single demo, four runs against release-rocket-api. (1) RDP-1 → Generate Code in the Jira sidebar. (2) RDP-3 → set assignee = Rovo Dev, agent takes it. (3) RDP-2 → set label `ready-for-dev`, automation rule kicks in. (4) RDP-5 → `acli rovodev run` from terminal with Jira + Confluence context. All four end with a draft PR on GitHub. Fallback: screenshots for any that lag.</aside>
     </section>
 
     <!-- Takeaway · Block 01 -->
@@ -1193,12 +1205,12 @@
           <p>Quick click. PMs and tech leads.</p>
         </div>
         <div class="tk-card fragment fade-up">
-          <h3>Automation</h3>
-          <p>Zero-touch. Scales to the team.</p>
-        </div>
-        <div class="tk-card fragment fade-up">
           <h3>Agent assignee</h3>
           <p>Rovo as a teammate. Fits existing handoff patterns.</p>
+        </div>
+        <div class="tk-card fragment fade-up">
+          <h3>Automation</h3>
+          <p>Zero-touch. Scales to the team.</p>
         </div>
         <div class="tk-card fragment fade-up">
           <h3>Terminal</h3>
